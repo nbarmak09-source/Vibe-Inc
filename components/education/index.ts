@@ -1,0 +1,10 @@
+export { LessonBlock } from "./lesson-block";
+export { KnowledgeCheck } from "./knowledge-check";
+export type { KnowledgeCheckQuestion } from "./knowledge-check";
+export { ProgressSidebar } from "./progress-sidebar";
+export type { ProgressSidebarItem } from "./progress-sidebar";
+export { InteractiveCallout } from "./interactive-callout";
+export { CodePlayground } from "./code-playground";
+export type { CodePlaygroundTab } from "./code-playground";
+export { ArchitectureDiagram } from "./architecture-diagram";
+export { LayerBadge } from "./layer-badge";
