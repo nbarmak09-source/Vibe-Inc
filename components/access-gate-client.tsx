@@ -79,6 +79,16 @@ export function AccessGateClient() {
           return;
         }
 
+        if (res.status >= 500 || data.error === "server_config") {
+          setShowError(true);
+          setErrorMessage(
+            data.message ??
+              "Server is not configured for access codes yet. Set ACCESS_CODES and ACCESS_SESSION_SECRET in .env.local (local) or your host’s environment variables, then redeploy."
+          );
+          runShake();
+          return;
+        }
+
         if (!res.ok || !data.ok) {
           setShowError(true);
           setErrorMessage("Invalid access code. Please try again.");
