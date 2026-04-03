@@ -20,7 +20,6 @@ export type ProgressSidebarItem = {
 
 type ProgressSidebarProps = {
   items: ProgressSidebarItem[];
-  className?: string;
 };
 
 function ProgressBody({
@@ -98,10 +97,10 @@ function ProgressBody({
   );
 }
 
-export function ProgressSidebar({ items, className }: ProgressSidebarProps) {
+export function ProgressSidebar({ items }: ProgressSidebarProps) {
   const [activeSectionId, setActiveSectionId] = useState(items[0]?.id ?? "");
   const [completionMap, setCompletionMap] = useState<Record<string, boolean>>({});
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [panelOpen, setPanelOpen] = useState(false);
 
   const completionIds = useMemo(
     () => items.map((item) => item.completionId ?? item.id),
@@ -161,57 +160,50 @@ export function ProgressSidebar({ items, className }: ProgressSidebarProps) {
     const target = document.getElementById(id);
     if (!target) return;
     target.scrollIntoView({ behavior: "smooth", block: "start" });
-    setMobileOpen(false);
+    setPanelOpen(false);
   };
 
   return (
     <>
-      <aside className={cn("hidden min-w-0 w-full max-w-[280px] justify-self-end xl:block", className)}>
-        <div className="rounded-2xl border border-border/80 bg-card/85 p-4 shadow-lg shadow-black/25 backdrop-blur-sm">
-          <ProgressBody
-            items={items}
-            activeSectionId={activeSectionId}
-            completionMap={completionMap}
-            onJump={scrollToSection}
-          />
-        </div>
-      </aside>
+      <Button
+        type="button"
+        size="lg"
+        className="fixed right-6 z-[60] h-11 rounded-full px-4 shadow-xl shadow-electric-blue/20 bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:right-8"
+        onClick={() => setPanelOpen((prev) => !prev)}
+        aria-expanded={panelOpen}
+        aria-controls="education-progress-panel"
+      >
+        <Menu className="mr-1 h-4 w-4" aria-hidden />
+        Progress
+      </Button>
 
-      <div className="xl:hidden">
-        <Button
-          type="button"
-          size="lg"
-          className="fixed bottom-6 right-6 z-40 h-11 rounded-full px-4 shadow-xl shadow-electric-blue/20"
-          onClick={() => setMobileOpen((prev) => !prev)}
-        >
-          <Menu className="mr-1 h-4 w-4" />
-          Progress
-        </Button>
+      <div
+        className={cn(
+          "fixed inset-0 z-[55] bg-black/45 transition-opacity duration-200",
+          panelOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+        )}
+        onClick={() => setPanelOpen(false)}
+        aria-hidden
+      />
 
-        <div
-          className={cn(
-            "fixed inset-0 z-40 bg-black/45 transition-opacity duration-200",
-            mobileOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-          )}
-          onClick={() => setMobileOpen(false)}
-        />
-
-        <div
-          className={cn(
-            "fixed inset-x-0 bottom-0 z-50 rounded-t-2xl border border-border bg-background p-4 shadow-2xl transition-transform duration-300",
-            mobileOpen ? "translate-y-0" : "translate-y-full"
-          )}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Progress panel"
-        >
-          <div className="mb-3 flex items-center justify-between">
+      <div
+        id="education-progress-panel"
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-[60] max-h-[85vh] rounded-t-2xl border border-border bg-background shadow-2xl transition-transform duration-300",
+          panelOpen ? "translate-y-0" : "translate-y-full"
+        )}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Progress panel"
+      >
+        <div className="flex max-h-[85vh] flex-col p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+          <div className="mb-3 flex shrink-0 items-center justify-between">
             <h3 className="text-sm font-semibold text-foreground">Your progress</h3>
-            <Button variant="ghost" size="icon-sm" onClick={() => setMobileOpen(false)}>
+            <Button variant="ghost" size="icon-sm" onClick={() => setPanelOpen(false)}>
               <X className="h-4 w-4" />
             </Button>
           </div>
-          <div className="max-h-[65vh] overflow-y-auto pr-1">
+          <div className="min-h-0 flex-1 overflow-y-auto pr-1">
             <ProgressBody
               items={items}
               activeSectionId={activeSectionId}

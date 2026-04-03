@@ -475,8 +475,8 @@ function NumberedStep({
 export default function VibeCoding101Content() {
   return (
     <div>
-      <div className="grid grid-cols-1 items-start gap-10 xl:grid-cols-[3fr_1fr] xl:gap-12 2xl:gap-16">
-        {/* ── Main content ─────────────────────────────────────────────── */}
+      <div className="relative pb-24 md:pb-28">
+        {/* Progress is the fixed bottom “Progress” button + sheet on all screen sizes */}
         <article className="min-w-0 space-y-10 md:space-y-12">
 
           {/* ══════════════════════════════════════════════════════════════
