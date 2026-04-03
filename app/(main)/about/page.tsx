@@ -8,7 +8,6 @@ import {
   BookOpen,
   Rocket,
   Shield,
-  ArrowUpRight,
   MessageCircle,
   Mail,
   MapPin,
@@ -245,10 +244,12 @@ export default function AboutPage() {
               </div>
 
               <a
-                href="#"
+                href="https://www.instagram.com/wvibe.ai/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-electric-blue hover:text-electric-blue/80 transition-colors"
               >
-                Visit WVibe <ArrowUpRight className="h-3.5 w-3.5" />
+                @wvibe.ai on Instagram <ExternalLink className="h-3.5 w-3.5" />
               </a>
             </div>
           </div>
@@ -289,14 +290,24 @@ export default function AboutPage() {
                 Pioneering vibe coding education at Queen&apos;s since 2025.
               </div>
 
-              <a
-                href="https://www.qvibe.online/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-vibe-purple hover:text-vibe-purple/80 transition-colors"
-              >
-                Visit QVibe <ExternalLink className="h-3.5 w-3.5" />
-              </a>
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
+                <a
+                  href="https://www.qvibe.online/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-vibe-purple hover:text-vibe-purple/80 transition-colors"
+                >
+                  Visit QVibe <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+                <a
+                  href="https://www.instagram.com/qvibe.ai/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-vibe-purple hover:text-vibe-purple/80 transition-colors"
+                >
+                  @qvibe.ai on Instagram <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -456,11 +467,14 @@ export default function AboutPage() {
           {/* Join buttons */}
           <div className="mb-8 flex flex-wrap gap-3">
             <a
-              href="#"
+              href="https://www.instagram.com/wvibe.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl border border-electric-blue/30 bg-electric-blue/10 px-5 py-2.5 text-sm font-semibold text-electric-blue transition-all hover:bg-electric-blue/20"
             >
-              <BookOpen className="h-4 w-4" />
-              Join WVibe
+              <Camera className="h-4 w-4" />
+              WVibe on Instagram
+              <ExternalLink className="h-3.5 w-3.5" />
             </a>
             <a
               href="https://www.qvibe.online/"
@@ -472,6 +486,16 @@ export default function AboutPage() {
               Join QVibe
               <ExternalLink className="h-3.5 w-3.5" />
             </a>
+            <a
+              href="https://www.instagram.com/qvibe.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-xl border border-vibe-purple/30 bg-vibe-purple/10 px-5 py-2.5 text-sm font-semibold text-vibe-purple transition-all hover:bg-vibe-purple/20"
+            >
+              <Camera className="h-4 w-4" />
+              QVibe on Instagram
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
           </div>
 
           {/* Social icons */}
@@ -479,13 +503,24 @@ export default function AboutPage() {
             <p className="text-xs text-white/40">Follow us</p>
             <div className="h-px flex-1 max-w-[60px] bg-white/10" />
             {[
-              { icon: Camera, label: "Instagram", href: "#" },
+              {
+                icon: Camera,
+                label: "WVibe on Instagram",
+                href: "https://www.instagram.com/wvibe.ai/",
+              },
+              {
+                icon: Camera,
+                label: "QVibe on Instagram",
+                href: "https://www.instagram.com/qvibe.ai/",
+              },
               { icon: Briefcase, label: "LinkedIn", href: "#" },
               { icon: MessageCircle, label: "Discord", href: "#" },
             ].map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
                 href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={label}
                 className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white/50 transition-all hover:border-white/25 hover:bg-white/10 hover:text-white"
               >
