@@ -26,7 +26,12 @@ export async function POST(req: Request) {
   const sessionSecret = process.env.ACCESS_SESSION_SECRET;
   if (!sessionSecret?.trim()) {
     return NextResponse.json(
-      { ok: false, error: "server_config", message: "Server misconfiguration." },
+      {
+        ok: false,
+        error: "server_config",
+        message:
+          "ACCESS_SESSION_SECRET is missing. Add a long random string to .env.local (local dev) or your host’s Environment Variables (e.g. Vercel → Project → Settings → Environment Variables), then restart the dev server or redeploy.",
+      },
       { status: 500 }
     );
   }
@@ -53,7 +58,12 @@ export async function POST(req: Request) {
   const codes = parseAccessCodes(process.env.ACCESS_CODES);
   if (codes.length === 0) {
     return NextResponse.json(
-      { ok: false, error: "server_config", message: "No access codes configured." },
+      {
+        ok: false,
+        error: "server_config",
+        message:
+          "ACCESS_CODES is missing or empty. Set comma-separated codes in .env.local or your host’s Environment Variables, then restart or redeploy.",
+      },
       { status: 500 }
     );
   }
